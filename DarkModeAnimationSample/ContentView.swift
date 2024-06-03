@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var scheme: ColorScheme = .light
     @State private var screenshot: UIImage? = nil
     @State private var buttonFrame: CGRect = .zero
-    private var animationDuration: TimeInterval = 1.3
+    private var animationDuration: TimeInterval = 1.4
 
     @State private var value1: Bool = true
     @State private var value2: Bool = false
@@ -77,9 +77,9 @@ extension View {
                                     .offset(x: anchor.origin.x, y: anchor.origin.y)
                             }
                         }
-                        .ignoresSafeArea()
                 }
             }
+            .ignoresSafeArea()
     }
 }
 
