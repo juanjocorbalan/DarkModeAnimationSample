@@ -8,13 +8,8 @@
 import SwiftUI
 
 struct ColorSchemeButtonView: View {
-    @Binding var scheme: ColorScheme
+    @Environment(\.colorScheme) private var scheme
     var action: (() -> Void)?
-
-    init(scheme: Binding<ColorScheme>, action: (() -> Void)? = nil) {
-        self._scheme = scheme
-        self.action = action
-    }
 
     var body: some View {
         Button(action: {
@@ -23,26 +18,28 @@ struct ColorSchemeButtonView: View {
             }
         }, label: {
             Image(systemName: scheme == .light ? "sun.max" : "moon")
-                .font(.title2.bold())
-                .foregroundStyle(scheme == .dark ? .white : .black)
-                .padding(8)
-                .background{
-                    Circle()
-                        .stroke(lineWidth: 2)
-                        .fill(scheme == .dark ? .white : .black)
-                }
         })
-        .buttonStyle(ColorSchemeButtonStyle())
+        .buttonStyle(ColorSchemeButtonStyle(scheme: scheme))
     }
 }
 
 struct ColorSchemeButtonStyle: ButtonStyle {
+    let scheme: ColorScheme
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .font(.title2.bold())
+            .foregroundStyle(scheme == .dark ? .white : .black)
+            .padding(8)
+            .background{
+                Circle()
+                    .stroke(lineWidth: 2)
+                    .fill(scheme == .dark ? .white : .black)
+            }
             .scaleEffect(configuration.isPressed ? 1.3 : 1)
     }
 }
 
 #Preview {
-    ColorSchemeButtonView(scheme: .constant(.light))
+    ColorSchemeButtonView()
 }

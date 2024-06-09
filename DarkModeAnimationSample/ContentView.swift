@@ -31,7 +31,7 @@ struct ContentView: View {
 
                 Section("Appearance") {
                     LabeledContent("Color scheme") {
-                        ColorSchemeButtonView(scheme: $scheme) {
+                        ColorSchemeButtonView() {
                             screenshot = UIApplication.shared.rootView?.snapshot()
                             scheme = scheme == .light ? .dark : .light
                             withAnimation(.linear(duration: animationDuration)) {
